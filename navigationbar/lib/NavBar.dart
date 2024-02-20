@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigationbar/pages/login_page.dart';
 
 class NavBar extends StatelessWidget {
   @override
@@ -28,18 +29,8 @@ class NavBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text('Favorites'),
-            onTap: () => null,
-          ),
-          ListTile(
             leading: Icon(Icons.person),
             title: Text('Friends'),
-            onTap: () => null,
-          ),
-          ListTile(
-            leading: Icon(Icons.share),
-            title: Text('Share'),
             onTap: () => null,
           ),
           ListTile(
@@ -52,16 +43,18 @@ class NavBar extends StatelessWidget {
             title: Text('Settings'),
             onTap: () => null,
           ),
-          ListTile(
-            leading: Icon(Icons.description),
-            title: Text('Policies'),
-            onTap: () => null,
-          ),
           Divider(),
           ListTile(
-            title: Text('Exit'),
+            title: Text('Logout'),
             leading: Icon(Icons.exit_to_app),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return LoginPage();
+                }),
+              );
+            },
           ),
         ],
       ),
