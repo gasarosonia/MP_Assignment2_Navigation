@@ -63,5 +63,9 @@ android {
 flutter {
     source '../..'
 }
+android {
+  compileSdkVersion 33
+  
+}
 
 dependencies {}

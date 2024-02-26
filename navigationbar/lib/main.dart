@@ -1,10 +1,10 @@
-// main.dart
-
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'contact.dart';
 import 'NavBar.dart';
-import 'calculator.dart'; // Import CalculatorPage
+import 'calculator.dart';
+import 'home_screen.dart';
 import 'package:get/get.dart';
 import 'dependency_injection.dart';
 
@@ -25,60 +25,28 @@ class _MyAppState extends State<MyApp> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
 
+  // Updated _widgetOption list to include LoginFormPage
   static final List<Widget> _widgetOption = <Widget>[
-    Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.blue,
-            Colors.green,
-          ],
-        ),
-      ),
-      child: Center(
-        child: Text(
-          "Gallery",
-          style: optionStyle,
-        ),
-      ),
-    ),
-    Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.purple.shade200,
-            Colors.indigo.shade300,
-            Colors.blue.shade400,
-          ],
-        ),
-      ),
-      child: Center(
-        child: Text(
-          "Contacts",
-          style: optionStyle,
-        ),
-      ),
-    ),
+    HomeScreen(),
+    ContactsApp(),
     CalculatorPage(),
   ];
 
+  // Define light theme
   final ThemeData _lightTheme = ThemeData(
     primarySwatch: Colors.blue,
     hintColor: Colors.amber,
     brightness: Brightness.light,
   );
 
+  // Define dark theme
   final ThemeData _darkTheme = ThemeData(
     primarySwatch: Colors.teal,
     hintColor: Colors.deepOrange,
     brightness: Brightness.dark,
   );
 
-  ThemeData _currentTheme = ThemeData.light();
+  ThemeData _currentTheme = ThemeData.light(); // Default to light theme
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +58,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text("Navigation Bar"),
           actions: [
+            // Theme toggle button
             IconButton(
               icon: Icon(Icons.brightness_6),
               onPressed: _toggleTheme,
@@ -124,11 +93,11 @@ class _MyAppState extends State<MyApp> {
                 color: Colors.black,
                 tabs: const [
                   GButton(
-                    icon: LineIcons.photoVideo,
+                    icon: LineIcons.enviraGallery,
                     text: "Gallery",
                   ),
                   GButton(
-                    icon: LineIcons.phone,
+                    icon: LineIcons.fileContract,
                     text: "Contacts",
                   ),
                   GButton(
@@ -150,6 +119,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  // Theme toggle method
   void _toggleTheme() {
     setState(() {
       _currentTheme = _currentTheme == _lightTheme ? _darkTheme : _lightTheme;

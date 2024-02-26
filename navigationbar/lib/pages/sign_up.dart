@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:navigationbar/components/my_button.dart';
 import 'package:navigationbar/components/my_textfield.dart';
 import 'package:navigationbar/pages/login_page.dart';
+import 'package:navigationbar/api/google_signin_api.dart';
 
 class SignPage extends StatefulWidget {
   SignPage({Key? key}) : super(key: key);
@@ -30,10 +33,22 @@ class _SignPageState extends State<SignPage> {
 
   ThemeData _currentTheme = ThemeData.light();
 
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+
   void _toggleTheme() {
     setState(() {
       _currentTheme = _currentTheme == _lightTheme ? _darkTheme : _lightTheme;
     });
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      await _googleSignIn.signIn();
+      // Handle successful sign-in
+    } catch (error) {
+      print('Error signing in with Google: $error');
+      // Handle sign-in error
+    }
   }
 
   BoxDecoration _buildBackground(BuildContext context) {
@@ -60,6 +75,10 @@ class _SignPageState extends State<SignPage> {
             IconButton(
               icon: Icon(Icons.brightness_6),
               onPressed: _toggleTheme,
+            ),
+            SignInButton(
+              Buttons.Google,
+              onPressed: _signInWithGoogle,
             ),
           ],
         ),
@@ -169,5 +188,9 @@ class _SignPageState extends State<SignPage> {
         ),
       ),
     );
+  }
+
+  Future SignIn() async {
+    await GoogleSignInApi.login();
   }
 }
